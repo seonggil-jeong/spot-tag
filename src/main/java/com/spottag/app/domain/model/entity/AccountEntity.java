@@ -89,6 +89,10 @@ public class AccountEntity {
     @OneToMany(mappedBy = "accountId", fetch = FetchType.LAZY)
     private List<LikeEntity> likeEntityList;
 
+    public void updateDeletedAt() {
+        this.deletedAt = LocalDateTime.now();
+    }
+
     @Builder
     public AccountEntity(
             String email,
