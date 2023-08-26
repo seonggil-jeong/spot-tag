@@ -11,28 +11,24 @@ spring:
       on-profile: dev
 
   ## DataBase (MySQL)
-  h2:
-    console:
-      enabled: true
-      path: /h2
   datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:test;MODE=MySQL
-    username: sa
-    password:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://34.22.78.239:5432/postgres
+    username: postgres
+    password: 43214321
 
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     open-in-view: false
     show-sql: true
     properties:
       hibernate:
-        format_sql: true
-        use_sql_comments: true
+        format_sql: false
+        use_sql_comments: false
         naming:
           physical-strategy = org.hibernate.model.naming.PhysicalNamingStrategyStandardImpl
-    database: mysql
+    database: postgresql
     generate-ddl: true
 
 # Logging Info

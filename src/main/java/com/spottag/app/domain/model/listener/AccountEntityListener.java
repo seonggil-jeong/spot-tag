@@ -1,6 +1,6 @@
 package com.spottag.app.domain.model.listener;
 
-import com.spottag.app.domain.model.AccountEntity;
+import com.spottag.app.domain.model.entity.AccountEntity;
 import jakarta.persistence.PreUpdate;
 import org.springframework.stereotype.Component;
 
