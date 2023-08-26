@@ -39,6 +39,9 @@ dependencies {
 
     // Swagger
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
+
+    // Test Code
+    testImplementation'org.springframework.boot:spring-boot-starter-test'
 }
 
 tasks.named('test') {
