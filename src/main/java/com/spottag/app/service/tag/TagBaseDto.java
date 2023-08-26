@@ -1,11 +1,9 @@
 package com.spottag.app.service.tag;
 
-import com.spottag.app.domain.model.TagBaseEntity;
-import jakarta.persistence.Entity;
+import com.spottag.app.domain.model.entity.TagBaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
