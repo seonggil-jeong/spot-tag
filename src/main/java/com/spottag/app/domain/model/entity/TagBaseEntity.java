@@ -80,6 +80,10 @@ public class TagBaseEntity {
     @OneToMany(mappedBy = "tagId", fetch = FetchType.LAZY)
     private List<LikeEntity> likeEntityList;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "account_id", nullable = false, updatable = false)
+    private AccountEntity accountId;
+
 
     @OneToOne(mappedBy = "tagId")
     @JoinColumn(name = "tag_image_id")
@@ -97,7 +101,8 @@ public class TagBaseEntity {
             String longitude,
             String createdBy,
             TagImageEntity tagImageEntity,
-            TagMusicEntity tagMusicEntity
+            TagMusicEntity tagMusicEntity,
+            AccountEntity accountId
     ) {
         this.tagContent = tagContent;
         this.latitude = latitude;
@@ -106,10 +111,34 @@ public class TagBaseEntity {
         this.createdAt = LocalDateTime.now();
         this.tagImage = tagImageEntity;
         this.tagMusic = tagMusicEntity;
-
-//        TODO ADD UserEntity
+        this.accountId = accountId;
     }
 
+    /**
+     * Delete Tag Base (Soft)
+     *
+     * @param deletedBy 삭제자 아이디
+     * @return result
+     */
+    public TagBaseEntity deleteTagBase(final String deletedBy) {
+        this.deletedBy = deletedBy;
+        this.deletedAt = LocalDateTime.now();
 
-    //    TODO FK by AccountEntity
+        return this;
+    }
+
+    /**
+     * Update TagBase
+     *
+     * @param tagContent 내용
+     * @param updatedBy  수정자 아이디
+     * @return result
+     */
+    public TagBaseEntity updateTagBase(final String tagContent, final String updatedBy) {
+        this.tagContent = tagContent;
+        this.updatedBy = updatedBy;
+        this.updatedAt = LocalDateTime.now();
+
+        return this;
+    }
 }
