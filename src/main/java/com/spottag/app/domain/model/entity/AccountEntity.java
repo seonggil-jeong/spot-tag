@@ -27,9 +27,8 @@ public class AccountEntity {
      * Seq
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "account_id", updatable = false, nullable = false)
-    private Long accountId;
+    @Column(name = "account_id", updatable = false, nullable = false, unique = true)
+    private String accountId;
 
     /**
      * 이메일
@@ -89,12 +88,12 @@ public class AccountEntity {
     @OneToMany(mappedBy = "accountId", fetch = FetchType.LAZY)
     private List<LikeEntity> likeEntityList;
 
-    public void updateDeletedAt() {
-        this.deletedAt = LocalDateTime.now();
-    }
+    @OneToMany(mappedBy = "accountId", fetch = FetchType.LAZY)
+    private List<TagBaseEntity> tagBaseEntityList;
 
     @Builder
     public AccountEntity(
+            String accountId,
             String email,
             String password,
             String nickname,
@@ -103,6 +102,7 @@ public class AccountEntity {
             LocalDateTime updatedAt,
             LocalDateTime deletedAt
     ) {
+        this.accountId = accountId;
         this.email = email;
         this.password = password;
         this.nickname = nickname;

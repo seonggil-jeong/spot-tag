@@ -13,20 +13,28 @@ import java.time.LocalDateTime;
 
 })
 public class TagImageEntity {
+
+    /**
+     * PK
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "tag_image_id")
     private Long tagImageId;
 
+    /**
+     * 생성일
+     */
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
 
+    /**
+     * Tag Base Id (FK)
+     */
     @OneToOne
     @JoinColumn(name = "tag_id")
     private TagBaseEntity tagId;
-
-//    TODO Add Columns
 
     @Builder
     public TagImageEntity(TagBaseEntity tagBaseEntity) {
