@@ -13,7 +13,7 @@ public class AccountEntityListener {
     @PreUpdate
     public void preUpdate(AccountEntity accountEntity) {
         if (accountEntity.getDeletedBy() != null) {
-            accountEntity.setDeletedAt(LocalDateTime.now());
+            accountEntity.updateDeletedAt();
         }
     }
 }
