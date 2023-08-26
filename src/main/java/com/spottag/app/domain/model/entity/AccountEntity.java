@@ -1,7 +1,8 @@
-package com.spottag.app.domain.model;
+package com.spottag.app.domain.model.entity;
 
-import com.spottag.app.domain.model.enums.AccountRoleEnums;
+import com.spottag.app.domain.model.entity.LikeEntity;
 import com.spottag.app.domain.model.listener.AccountEntityListener;
+import com.spottag.enums.AccountRoleEnums;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
@@ -9,7 +10,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -26,7 +26,8 @@ public class AccountEntity {
     /**
      * Seq
      */
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "account_id", updatable = false, nullable = false)
     private Long accountId;
 
@@ -39,7 +40,7 @@ public class AccountEntity {
     /**
      * 비밀번호
      */
-    @Column(name = "password", nullable = false, length = 20)
+    @Column(name = "password", nullable = false, length = 400)
     private String password;
 
     /**
@@ -84,9 +85,9 @@ public class AccountEntity {
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
 
-    /**Onetomany**/
-    @OneToMany(mappedBy = "UserId")
-    private List<LikeEntity> Likes;
+
+    @OneToMany(mappedBy = "accountId", fetch = FetchType.LAZY)
+    private List<LikeEntity> likeEntityList;
 
     @Builder
     public AccountEntity(
@@ -95,7 +96,6 @@ public class AccountEntity {
             String nickname,
             AccountRoleEnums role,
             Long deletedBy,
-            LocalDateTime createdAt,
             LocalDateTime updatedAt,
             LocalDateTime deletedAt
     ) {
@@ -104,7 +104,7 @@ public class AccountEntity {
         this.nickname = nickname;
         this.role = role;
         this.deletedBy = deletedBy;
-        this.createdAt = createdAt;
+        this.createdAt = LocalDateTime.now();
         this.updatedAt = updatedAt;
         this.deletedAt = deletedAt;
     }

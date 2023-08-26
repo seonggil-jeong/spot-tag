@@ -1,4 +1,4 @@
-package com.spottag.app.domain.model.enums;
+package com.spottag.enums;
 
 public enum AccountRoleEnums {
     USER("USER"),

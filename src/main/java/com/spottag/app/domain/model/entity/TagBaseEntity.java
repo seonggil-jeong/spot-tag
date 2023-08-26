@@ -1,17 +1,16 @@
-package com.spottag.app.domain.model;
+package com.spottag.app.domain.model.entity;
 
 import jakarta.persistence.*;
-import jdk.jfr.Enabled;
 import lombok.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "tag_base", indexes = {
+@Table(name = "tag_base", schema = "public", indexes = {
 
 })
 public class TagBaseEntity {
@@ -28,6 +27,19 @@ public class TagBaseEntity {
      */
     @Column(name = "tag_content", nullable = false, length = 400)
     private String tagContent;
+
+
+    /**
+     * 위도
+     */
+    @Column(name = "latitude", nullable = false)
+    private String latitude;
+
+    /**
+     * 경도
+     */
+    @Column(name = "longitude", nullable = false)
+    private String longitude;
 
     /**
      * 생성자
@@ -53,7 +65,6 @@ public class TagBaseEntity {
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
-
     /**
      * 수정일
      */
@@ -66,15 +77,35 @@ public class TagBaseEntity {
     @Column(name = "deletedAt")
     private LocalDateTime deletedAt;
 
+    @OneToMany(mappedBy = "tagId", fetch = FetchType.LAZY)
+    private List<LikeEntity> likeEntityList;
+
+
+    @OneToOne(mappedBy = "tagId")
+    @JoinColumn(name = "tag_image_id")
+    private TagImageEntity tagImage;
+
+    @OneToOne(mappedBy = "tagId")
+    @JoinColumn(name = "tag_music_id")
+    private TagMusicEntity tagMusic;
+
+
     @Builder
-    public TagBaseEntity(String tagContent, String createdBy, String updatedBy, String deletedBy, LocalDateTime updatedAt, LocalDateTime deletedAt) {
+    public TagBaseEntity(
+            String tagContent,
+            String latitude,
+            String longitude,
+            String createdBy,
+            TagImageEntity tagImageEntity,
+            TagMusicEntity tagMusicEntity
+    ) {
         this.tagContent = tagContent;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.createdBy = createdBy;
         this.createdAt = LocalDateTime.now();
-        this.updatedBy = updatedBy;
-        this.deletedBy = deletedBy;
-        this.updatedAt = updatedAt;
-        this.deletedAt = deletedAt;
+        this.tagImage = tagImageEntity;
+        this.tagMusic = tagMusicEntity;
 
 //        TODO ADD UserEntity
     }
