@@ -11,20 +11,20 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "like_info")
+@Table(name = "like_info", schema = "public")
 public class LikeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "like_no", updatable = false, nullable = false, unique = true)
-    private Long likeNo;
+    @Column(name = "likeId", updatable = false, nullable = false, unique = true)
+    private Long likeId;
 
-//    @ManyToOne
-//    @JoinColumn(name = "TagSeq")
-//    private // TODO: 2023/08/26   tag;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "UserId")
-//    private  // TODO: 2023/08/26   userId;
+    @ManyToOne
+    @JoinColumn(name = "TagSeq")
+    private TagBaseEntity tagId;
+
+    @ManyToOne
+    @JoinColumn(name = "UserId")
+    private AccountEntity accountId;
 
     @Column(name = "like_date")
     private LocalDateTime likeDate;
