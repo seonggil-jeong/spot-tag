@@ -1,4 +1,4 @@
-package com.spottag.app.service.tag;
+package com.spottag.app.service.tag.dto;
 
 import com.spottag.app.domain.model.entity.TagBaseEntity;
 import lombok.AllArgsConstructor;
@@ -17,12 +17,13 @@ public class TagBaseDto {
     private final Long tagId;
     private final String tagContent;
     private final String createdBy;
-    private String updatedBy;
-    private String deletedBy;
+    private final String updatedBy;
+    private final String deletedBy;
+    private final LocalDateTime createdAt;
+    private final LocalDateTime updatedAt;
+    private final LocalDateTime deletedAt;
 
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
-    private LocalDateTime deletedAt;
+    private Integer likeCount;
 
 
     public static TagBaseDto ofEntity(TagBaseEntity entity) {
