@@ -13,4 +13,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class TagFacadeServiceImpl {
     private final TagBaseServiceImpl tagBaseService;
+    private final TagImageServiceImpl tagImageService;
+    private final TagMusicServiceImpl tagMusicService;
 }
