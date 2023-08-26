@@ -79,7 +79,6 @@ public class AccountEntity {
     /**
      * 삭제일
      */
-    @Setter
     @Nullable
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
@@ -111,6 +110,10 @@ public class AccountEntity {
         this.createdAt = LocalDateTime.now();
         this.updatedAt = updatedAt;
         this.deletedAt = deletedAt;
+    }
+
+    public void setDeletedAt() {
+        this.deletedAt = LocalDateTime.now();
     }
 
 }
