@@ -10,6 +10,7 @@ spring:
     activate:
       on-profile: dev
 
+
   ## DataBase (MySQL)
   datasource:
     driver-class-name: org.postgresql.Driver
