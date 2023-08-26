@@ -9,6 +9,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Getter
@@ -81,6 +83,10 @@ public class AccountEntity {
     @Nullable
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
+
+    /**Onetomany**/
+    @OneToMany(mappedBy = "UserId")
+    private List<LikeEntity> Likes;
 
     @Builder
     public AccountEntity(
