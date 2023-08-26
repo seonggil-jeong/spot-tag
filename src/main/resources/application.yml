@@ -1,0 +1,13 @@
+server:
+  port: 8080
+
+spring:
+  profiles:
+    default: dev
+
+jwt:
+  secret: "SpringBootSampleKeySpringBootSampleKeySpringBootSampleKeySpringBootSampleKey"
+
+mybatis:
+  type-aliases-package: com.spottag.app.domain.vo
+  mapper-locations: classpath:mapper/*.xml
