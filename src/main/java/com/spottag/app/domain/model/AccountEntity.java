@@ -7,50 +7,100 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
-@Entity
+
 @Getter
-@Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EntityListeners(AccountEntityListener.class)
+@Entity
+@Table(name = "account", indexes = {
+
+})
 public class AccountEntity {
 
+    /**
+     * Seq
+     */
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "account_id")
+    @Column(name = "account_id", updatable = false, nullable = false)
     private Long accountId;
 
-    @Column(name = "email", unique = true)
+    /**
+     * 이메일
+     */
+    @Column(name = "email", unique = true, nullable = false)
     private String email;
 
-    @Column(name = "password")
+    /**
+     * 비밀번호
+     */
+    @Column(name = "password", nullable = false, length = 20)
     private String password;
 
-    @Column(name = "nickname")
+    /**
+     * 닉네임
+     */
+    @Column(name = "nickname", nullable = false, length = 8)
     private String nickname;
 
+    /**
+     * 권한
+     */
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
     private AccountRoleEnums role;
 
+    /**
+     * 삭제자
+     */
     @Nullable
     @Column(name = "deleted_by")
-    private Date deletedBy;
+    private Long deletedBy;
 
+    /**
+     * 생성일
+     */
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
+    /**
+     * 수정일
+     */
     @UpdateTimestamp
     @Column(name = "updated_at")
-    private Date updatedAt;
+    private LocalDateTime updatedAt;
 
+    /**
+     * 삭제일
+     */
     @Setter
     @Nullable
     @Column(name = "deleted_at")
-    private Date deletedAt;
+    private LocalDateTime deletedAt;
+
+    @Builder
+    public AccountEntity(
+            String email,
+            String password,
+            String nickname,
+            AccountRoleEnums role,
+            Long deletedBy,
+            LocalDateTime createdAt,
+            LocalDateTime updatedAt,
+            LocalDateTime deletedAt
+    ) {
+        this.email = email;
+        this.password = password;
+        this.nickname = nickname;
+        this.role = role;
+        this.deletedBy = deletedBy;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.deletedAt = deletedAt;
+    }
+
 }
