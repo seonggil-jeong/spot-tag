@@ -55,7 +55,6 @@ public class SecurityConfig {
                         headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
                 .authorizeHttpRequests(auth ->
                         auth
-                                .requestMatchers(PathRequest.toH2Console()).permitAll()
                                 .requestMatchers(Stream
                                         .of(AUTH_WHITELIST)
                                         .map(AntPathRequestMatcher::antMatcher)

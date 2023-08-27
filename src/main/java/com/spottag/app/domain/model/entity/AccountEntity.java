@@ -24,7 +24,7 @@ import java.util.List;
 public class AccountEntity {
 
     /**
-     * Seq
+     * Account Id
      */
     @Id
     @Column(name = "account_id", updatable = false, nullable = false, unique = true)
@@ -60,7 +60,7 @@ public class AccountEntity {
      */
     @Nullable
     @Column(name = "deleted_by")
-    private Long deletedBy;
+    private String deletedBy;
 
     /**
      * 생성일
@@ -96,20 +96,14 @@ public class AccountEntity {
             String email,
             String password,
             String nickname,
-            AccountRoleEnums role,
-            Long deletedBy,
-            LocalDateTime updatedAt,
-            LocalDateTime deletedAt
+            AccountRoleEnums role
     ) {
         this.accountId = accountId;
         this.email = email;
         this.password = password;
         this.nickname = nickname;
         this.role = role;
-        this.deletedBy = deletedBy;
         this.createdAt = LocalDateTime.now();
-        this.updatedAt = updatedAt;
-        this.deletedAt = deletedAt;
     }
 
     public void setDeletedAt() {
