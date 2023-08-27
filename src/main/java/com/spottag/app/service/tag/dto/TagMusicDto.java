@@ -16,12 +16,26 @@ import java.time.LocalDateTime;
 @SuperBuilder
 public class TagMusicDto {
     private final Long tagMusicId;
+    private String artistName;
+    private String trackId;
+    private String trackUrl;
+    private String previewUrl;
+    private String lImageUrl;
+    private String mImageUrl;
+    private String sImageUrl;
     private final LocalDateTime createdAt;
 
 
     public static TagMusicDto ofEntity(TagMusicEntity entity) {
         return TagMusicDto.builder()
                 .tagMusicId(entity.getTagMusicId())
+                .artistName(entity.getArtistName())
+                .trackId(entity.getTrackId())
+                .trackUrl(entity.getTrackUrl())
+                .previewUrl(entity.getPreviewUrl())
+                .lImageUrl(entity.getLImageUrl())
+                .mImageUrl(entity.getMImageUrl())
+                .sImageUrl(entity.getSImageUrl())
                 .createdAt(entity.getCreatedAt())
                 .build();
     }

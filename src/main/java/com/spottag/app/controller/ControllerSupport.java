@@ -1,7 +1,6 @@
 package com.spottag.app.controller;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import lombok.extern.slf4j.Slf4j;
@@ -31,15 +30,16 @@ public class ControllerSupport {
 
     /**
      * 로그인 사용자 아이디 조회
+     *
      * @return
      */
-    public Integer getUserId() throws AccountException{
+    public String getAccountId() throws AccountException {
         String username = getAuthentication().getName();
-        if(username == null){
+        if (username == null) {
             throw new AccountException("Can not get username.");
         }
 
-        return Integer.valueOf(username);
+        return username;
     }
 }
 

@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @Table(name = "tag_music", schema = "public", indexes = {
 
 })
+@ToString
 public class TagMusicEntity {
 
     /**
@@ -106,6 +107,7 @@ public class TagMusicEntity {
             final String trackUrl,
             final String previewUrl,
             final String lImageUrl,
+            final String mImageUrl,
             final String sImageUrl
     ) {
         this.musicTitle = musicTitle;

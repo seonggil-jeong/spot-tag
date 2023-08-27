@@ -11,7 +11,7 @@ import com.wrapper.spotify.model_objects.specification.Track;
 @RequiredArgsConstructor
 @NoArgsConstructor(force = true)
 @Builder
-public class SpotifyMusicTrackDto {
+public class SpotifyMusicDto {
     private final String musicTitle;
     private final String artistName;
     private final String trackId;
@@ -22,8 +22,8 @@ public class SpotifyMusicTrackDto {
     private final String sImageUrl;
 
 
-    public static SpotifyMusicTrackDto ofSpotifyTrack(Track track) {
-        return SpotifyMusicTrackDto.builder()
+    public static SpotifyMusicDto ofSpotifyTrack(Track track) {
+        return SpotifyMusicDto.builder()
                 .musicTitle(track.getName())
                 .artistName(track.getArtists()[0].getName())
                 .trackId(track.getId())
