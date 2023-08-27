@@ -13,6 +13,8 @@ import java.util.List;
 @Table(name = "tag_base", schema = "public", indexes = {
 
 })
+@ToString
+@EqualsAndHashCode
 public class TagBaseEntity {
     /**
      * Seq
