@@ -28,11 +28,45 @@ public class TagMusicEntity {
     @Column(name = "music_title", nullable = false)
     private String musicTitle;
 
+
+    @Column(name = "artist_name", nullable = false)
+    private String artistName;
+
     /**
-     * 설명
+     * track 식별 아이디
      */
-    @Column(name = "music_description", length = 100)
-    private String musicDescription;
+    @Column(name = "track_id", nullable = false)
+    private String trackId;
+
+    /**
+     * track url -> move spotify Page
+     */
+    @Column(name = "track_url", nullable = false)
+    private String trackUrl;
+
+    /**
+     * 음원 미리듣기 URL
+     */
+    @Column(name = "preview_url")
+    private String previewUrl;
+
+    /**
+     * 큰 사이지 이미지
+     */
+    @Column(name = "l_image_url")
+    private String lImageUrl;
+
+    /**
+     * 중간 사이즈 이미지
+     */
+    @Column(name = "m_image_url")
+    private String mImageUrl;
+
+    /**
+     * 작은 사이즈 이미지
+     */
+    @Column(name = "s_image_url")
+    private String sImageUrl;
 
     /**
      * 생성일
@@ -48,16 +82,40 @@ public class TagMusicEntity {
 
 
     @Builder
-    public TagMusicEntity(String musicTitle, String musicDescription, TagBaseEntity tagBase) {
+    public TagMusicEntity(String musicTitle,
+                          String artistName,
+                          String trackId, String trackUrl, String previewUrl,
+                          String lImageUrl, String mImageUrl, String sImageUrl, TagBaseEntity tagId) {
         this.musicTitle = musicTitle;
-        this.musicDescription = musicDescription;
+        this.artistName = artistName;
+        this.trackId = trackId;
+        this.trackUrl = trackUrl;
+        this.previewUrl = previewUrl;
+        this.lImageUrl = lImageUrl;
+        this.mImageUrl = mImageUrl;
+        this.sImageUrl = sImageUrl;
         this.createdAt = LocalDateTime.now();
-        this.tagId = tagBase;
+        this.tagId = tagId;
     }
 
-    public TagMusicEntity updateTagMusic(final String musicTitle, final String musicDescription) {
+
+    public TagMusicEntity updateTagMusic(
+            final String musicTitle,
+            final String artistName,
+            final String trackId,
+            final String trackUrl,
+            final String previewUrl,
+            final String lImageUrl,
+            final String sImageUrl
+    ) {
         this.musicTitle = musicTitle;
-        this.musicDescription = musicDescription;
+        this.artistName = artistName;
+        this.trackId = trackId;
+        this.trackUrl = trackUrl;
+        this.previewUrl = previewUrl;
+        this.lImageUrl = lImageUrl;
+        this.mImageUrl = mImageUrl;
+        this.sImageUrl = sImageUrl;
 
         return this;
     }
