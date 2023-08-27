@@ -1,5 +1,6 @@
 package com.spottag.app.controller.like;
 
+import com.spottag.app.controller.ControllerSupport;
 import com.spottag.app.service.like.LikeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-public class LikeController {
+public class LikeController extends ControllerSupport {
 
     private final LikeService likeService;
 
