@@ -10,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -21,8 +20,20 @@ public class LikeService {
     private final AccountRepository accountRepository;
     private final TagBaseRepository tagBaseRepository;
 
+    /**
+     * Tag 의 좋아요 수 조회
+     *
+     * @param tagId
+     * @return
+     * @throws Exception
+     */
+    public Integer countLikeByAccountIdAndTagId(final Long tagId) throws Exception {
+        return likeRepository.countLikeEntityByTagId(tagId);
+
+    }
+
     @Transactional
-    public void likecheck(String accountId, Long tagId) {
+    public void likeCheck(String accountId, Long tagId) {
         AccountEntity accountEntity = accountRepository.findById(accountId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid accountId: " + accountId));
         TagBaseEntity tagBaseEntity = tagBaseRepository.findById(tagId)
