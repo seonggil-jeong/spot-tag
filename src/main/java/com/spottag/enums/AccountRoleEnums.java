@@ -4,7 +4,7 @@ public enum AccountRoleEnums {
     USER("USER"),
     ADMIN("ADMIN");
 
-    private String value;
+    private final String value;
 
     AccountRoleEnums(String value) {
         this.value = value;
