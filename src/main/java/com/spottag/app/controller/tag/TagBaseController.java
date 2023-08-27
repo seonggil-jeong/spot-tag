@@ -1,7 +1,8 @@
 package com.spottag.app.controller.tag;
 
 import com.spottag.app.controller.ControllerSupport;
-import com.spottag.app.controller.tag.req.UpdateTagBaseRequest;
+import com.spottag.app.controller.tag.req.CreateTagBaseRequest;
+import com.spottag.app.controller.tag.res.TagBaseResponse;
 import com.spottag.app.service.tag.TagBaseServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -22,20 +23,17 @@ import org.springframework.web.bind.annotation.*;
 public class TagBaseController extends ControllerSupport {
     private final TagBaseServiceImpl tagBaseService;
 
-    @GetMapping("/tags/base")
-    @Operation(summary = "TagBase 정보 조회", description = "위치 기반 Tag BaseList 조회")
+    @PostMapping("/tags/base")
+    @Operation(summary = "TagBase 생성", description = "TagBase 생성")
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "조회 성공")
+            @ApiResponse(responseCode = "201", description = "생성 완료")
     })
-    public ResponseEntity<Void> getTagBaseList(
-            @Parameter(description = "위도", required = true)
-            @RequestParam final String latitude,
-            @Parameter(description = "경도", required = true)
-            @RequestParam final String longitude
+    public ResponseEntity<Void> createTagBase(
+            @RequestBody final CreateTagBaseRequest body
     ) throws Exception {
+        tagBaseService.createTagBase(getAccountId(), body.getTagContent(), body.getLatitude(), body.getLongitude());
 
-        return ResponseEntity.ok().build();
-
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PatchMapping("/tags/{tagId}/base")
@@ -48,11 +46,13 @@ public class TagBaseController extends ControllerSupport {
     public ResponseEntity<Void> updateTagBase(
             @Parameter(example = "1", description = "tagBaseId", required = true)
             @PathVariable final Long tagId,
-            @RequestBody final UpdateTagBaseRequest body
+            @Parameter(description = "내용")
+            @RequestParam final String tagContent
 
     ) throws Exception {
+        tagBaseService.updateTagBase(getAccountId(), tagId, tagContent);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 
     }
 
@@ -65,7 +65,7 @@ public class TagBaseController extends ControllerSupport {
     public ResponseEntity<Void> deleteTagById(
             @PathVariable final Long tagId
     ) throws Exception {
-        tagBaseService.deleteTagBaseByTagId(tagId, "test");
+        tagBaseService.deleteTagBaseByTagId(tagId, getAccountId());
 
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

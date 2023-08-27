@@ -4,6 +4,7 @@ import com.spottag.app.domain.model.entity.TagBaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
@@ -23,6 +24,8 @@ public class TagBaseDto {
     private final LocalDateTime updatedAt;
     private final LocalDateTime deletedAt;
 
+    private final Long tagMusicId;
+    @Setter
     private Integer likeCount;
 
 
@@ -35,6 +38,8 @@ public class TagBaseDto {
                 .deletedBy(entity.getDeletedBy())
                 .createdAt(entity.getCreatedAt())
                 .updatedAt(entity.getUpdatedAt())
-                .deletedAt(entity.getDeletedAt()).build();
+                .deletedAt(entity.getDeletedAt())
+                .tagMusicId(entity.getTagMusic().getTagMusicId())
+                .build();
     }
 }

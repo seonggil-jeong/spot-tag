@@ -17,7 +17,7 @@ import javax.security.auth.login.AccountException;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1")
 @Tag(name = "Like", description = "좋아요 기능")
-public class LikeController extends ControllerSupport {
+public class TagLikeController extends ControllerSupport {
 
     private final LikeService likeService;
 
@@ -26,7 +26,7 @@ public class LikeController extends ControllerSupport {
             @Parameter(description = "tagId")
             @PathVariable Long tagId
     ) throws AccountException {
-        likeService.likecheck(getAccountId(), tagId);
+        likeService.likeCheck(getAccountId(), tagId);
 
         return ResponseEntity.ok().build();
     }

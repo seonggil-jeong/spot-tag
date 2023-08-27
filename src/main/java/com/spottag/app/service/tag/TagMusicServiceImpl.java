@@ -27,6 +27,19 @@ public class TagMusicServiceImpl {
 
 
     /**
+     * Select TagMusic Id를 사용하여 조회
+     * @param tagMusicId
+     * @return
+     * @throws Exception
+     */
+    public TagMusicDto getTagMusicByTagMusicId(final Long tagMusicId) throws Exception {
+        return TagMusicDto.ofEntity(tagMusicRepository.findById(tagMusicId).orElseThrow(()
+                -> new NoSuchElementException("cannot found TagMusic By tagMusicId : " + tagMusicId)));
+
+    }
+
+
+    /**
      * Update TagMusic
      *
      * @param tagId   tagBase Id
