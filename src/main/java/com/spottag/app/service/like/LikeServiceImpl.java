@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class LikeService {
+public class LikeServiceImpl {
 
     private final LikeRepository likeRepository;
     private final AccountRepository accountRepository;

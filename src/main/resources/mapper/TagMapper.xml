@@ -37,7 +37,34 @@
             and t1.longitude::float between (#{longitude}::float - #{distance})
                                                 and (#{longitude}::float + #{distance})
         </if>
-
     </select>
+    <select id="findTagInfoByTagBaseId" resultType="TagInfoVo">
+            select t1.tag_id                     as tag_id,
+                   t1.tag_content                as tag_content,
+                   t1.longitude                  as longitude,
+                   t1.latitude                   as latitude,
+                   t1.account_id                 as account_id,
+                   t1.created_by                 as created_by,
+                   t1.updated_by                 as updated_by,
+                   t1.deleted_by                 as deleted_by,
+                   t1.created_at                 as created_at,
+                   t1.updated_at                 as updated_at,
+                   t1.deleted_at                 as deleted_at,
+                   t2.tag_music_id               as tag_music_id,
+                   t2.created_at                 as music_created_at,
+                   t2.music_title                as music_title,
+                   t2.artist_name                as artist_name,
+                   t2.preview_url                as preview_url,
+                   t2.track_id                   as track_id,
+                   t2.track_url                  as track_url,
+                   t2.l_image_url                as l_image_url,
+                   t2.m_image_url                as m_image_url,
+                   t2.s_image_url                as s_image_url,
+                   (t2.tag_music_id is not null) as has_music
+            from tag_base as t1
+                     left join tag_music as t2 on t1.tag_id = t2.tag_id
+            where t1.deleted_at is null
+              and t1.tag_id = #{tagId}
+        </select>
 
 </mapper>

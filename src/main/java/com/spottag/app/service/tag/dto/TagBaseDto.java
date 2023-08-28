@@ -20,6 +20,7 @@ public class TagBaseDto {
     private final String tagContent;
     private final String latitude;
     private final String longitude;
+    private final String accountId;
     private final String createdBy;
     private final String updatedBy;
     private final String deletedBy;
@@ -36,6 +37,7 @@ public class TagBaseDto {
         return TagBaseDto.builder()
                 .tagId(entity.getTagId())
                 .tagContent(entity.getTagContent())
+                .accountId(entity.getAccountId().getAccountId())
                 .latitude(entity.getLatitude())
                 .longitude(entity.getLongitude())
                 .createdBy(entity.getCreatedBy())

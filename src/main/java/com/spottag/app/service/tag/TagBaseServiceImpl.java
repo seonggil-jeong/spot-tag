@@ -1,12 +1,9 @@
 package com.spottag.app.service.tag;
 
-import com.spottag.app.domain.mapper.TagMapper;
 import com.spottag.app.domain.model.entity.TagBaseEntity;
 import com.spottag.app.domain.repository.TagBaseRepository;
-import com.spottag.app.domain.vo.TagInfoVo;
-import com.spottag.app.service.like.LikeService;
+import com.spottag.app.service.like.LikeServiceImpl;
 import com.spottag.app.service.tag.dto.TagBaseDto;
-import com.spottag.app.service.tag.dto.TagInfoDto;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,9 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
 
 /**
  * Tag Base Service
@@ -28,36 +23,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class TagBaseServiceImpl {
     private final TagBaseRepository tagBaseRepository;
-    private final LikeService likeService;
-    private final TagMapper tagMapper;
-
-
-    /**
-     * TagInfo 조회
-     *
-     * @param latitude  위도
-     * @param longitude 경도
-     * @param distance  +- 거리
-     * @return
-     * @throws Exception
-     */
-    public List<TagInfoDto> getTagInfoByLatitudeAndLongitude(
-            final String latitude, final String longitude, Double distance
-    ) throws Exception {
-
-        return tagMapper.findAllTagInfo(distance, latitude, longitude).stream().map(TagInfoDto::ofVo)
-                .map(dto -> {
-                    try {
-                        dto.setLikeCount(likeService.countLikeByAccountIdAndTagId(dto.getTagId()));
-                        return dto;
-                    } catch (Exception e) {
-
-                        log.error("Exception : " + e);
-                        return dto;
-                    }
-                })
-                .collect(Collectors.toList());
-    }
+    private final LikeServiceImpl likeServiceImpl;
 
 
     /**
@@ -69,7 +35,7 @@ public class TagBaseServiceImpl {
     public TagBaseDto getTagBaseByTagId(final Long tagId) throws Exception {
         TagBaseDto tagBaseDto = TagBaseDto.ofEntity(tagBaseRepository.findByTagIdAndDeletedAtIsNull(tagId).orElseThrow(()
                 -> new ResponseStatusException(HttpStatus.NOT_FOUND, "cannot found TagBase with Id : " + tagId)));
-        tagBaseDto.setLikeCount(likeService.countLikeByAccountIdAndTagId(tagId));
+        tagBaseDto.setLikeCount(likeServiceImpl.countLikeByAccountIdAndTagId(tagId));
 
         return tagBaseDto;
     }
