@@ -1,7 +1,7 @@
 package com.spottag.app.controller.like;
 
 import com.spottag.app.controller.ControllerSupport;
-import com.spottag.app.service.like.LikeService;
+import com.spottag.app.service.like.LikeServiceImpl;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -19,14 +19,14 @@ import javax.security.auth.login.AccountException;
 @Tag(name = "Like", description = "좋아요 기능")
 class LikeController extends ControllerSupport {
 
-    private final LikeService likeService;
+    private final LikeServiceImpl likeServiceImpl;
 
     @PostMapping("/tags/{tagId}/likes")
     public ResponseEntity<Void> updateLike(
             @Parameter(description = "tagId")
             @PathVariable Long tagId
     ) throws AccountException {
-        likeService.likeCheck(getAccountId(), tagId);
+        likeServiceImpl.likeCheck(getAccountId(), tagId);
 
         return ResponseEntity.ok().build();
     }

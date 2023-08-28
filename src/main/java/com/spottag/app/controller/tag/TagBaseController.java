@@ -56,7 +56,7 @@ public class TagBaseController extends ControllerSupport {
 
     }
 
-    @DeleteMapping("/tags/base/{tagId}")
+    @DeleteMapping("/tags/{tagId}/base")
     @Operation(summary = "TagBase 정보 삭제", description = "Tag Base 정보 삭제 시 해당 정보는 출력 안됨")
     @ApiResponses({
             @ApiResponse(responseCode = "204", description = "삭제 성공"),
