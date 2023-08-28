@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(force = true)
 public class TagMusicResponse {
     private final Long tagMusicId;
+    private final String title;
     private final String artistName;
     private final String trackId;
     private final String trackUrl;
@@ -29,6 +30,7 @@ public class TagMusicResponse {
     public static TagMusicResponse ofDto(TagMusicDto dto) {
         return TagMusicResponse.builder()
                 .tagMusicId(dto.getTagMusicId())
+                .title(dto.getTitle())
                 .artistName(dto.getArtistName())
                 .trackId(dto.getTrackId())
                 .trackUrl(dto.getTrackUrl())
