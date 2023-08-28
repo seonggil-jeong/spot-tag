@@ -63,6 +63,53 @@ public class TagInfoDto {
                 .build();
     }
 
+    public static TagInfoDto ofTagBaseDto(final TagBaseDto dto) {
+        return TagInfoDto.builder()
+                .tagId(dto.getTagId())
+                .tagContent(dto.getTagContent())
+                .longitude(dto.getLongitude())
+                .latitude(dto.getLatitude())
+                .accountId(dto.getAccountId())
+                .createdBy(dto.getCreatedBy())
+                .updatedBy(dto.getUpdatedBy())
+                .deletedBy(dto.getDeletedBy())
+                .createdAt(dto.getCreatedAt())
+                .updatedAt(dto.getUpdatedAt())
+                .deletedAt(dto.getDeletedAt())
+                .hasMusic(false)
+                .build();
+
+
+    }
+
+    public static TagInfoDto mergeTagBaseDtoAndTagMusicDto(final TagBaseDto tagBaseDto, final TagMusicDto tagMusicDto) {
+        return TagInfoDto.builder()
+                .tagId(tagBaseDto.getTagId())
+                .tagContent(tagBaseDto.getTagContent())
+                .longitude(tagBaseDto.getLongitude())
+                .latitude(tagBaseDto.getLatitude())
+                .accountId(tagBaseDto.getAccountId())
+                .createdBy(tagBaseDto.getCreatedBy())
+                .updatedBy(tagBaseDto.getUpdatedBy())
+                .deletedBy(tagBaseDto.getDeletedBy())
+                .createdAt(tagBaseDto.getCreatedAt())
+                .updatedAt(tagBaseDto.getUpdatedAt())
+                .deletedAt(tagBaseDto.getDeletedAt())
+                .tagMusicId(tagMusicDto.getTagMusicId())
+                .musicCreatedAt(tagMusicDto.getCreatedAt())
+                .musicTitle(tagMusicDto.getTitle())
+                .artistName(tagMusicDto.getArtistName())
+                .previewUrl(tagMusicDto.getPreviewUrl())
+                .trackId(tagMusicDto.getTrackId())
+                .trackUrl(tagMusicDto.getTrackUrl())
+                .lImageUrl(tagMusicDto.getLImageUrl())
+                .mImageUrl(tagMusicDto.getMImageUrl())
+                .sImageUrl(tagMusicDto.getSImageUrl())
+                .hasMusic(true)
+                .build();
+
+    }
+
 
     public static LocalDateTime toLocalDate(OffsetDateTime dateTime) {
         if (dateTime != null) {

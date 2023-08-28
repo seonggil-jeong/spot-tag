@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 @Mapper
 public interface TagMapper {
@@ -21,4 +22,6 @@ public interface TagMapper {
             @Param(value = "latitude") String latitude,
             @Param(value = "longitude") final String longitude
     );
+
+    Optional<TagInfoVo> findTagInfoByTagBaseId(@Param(value = "tagId") final Long tagId);
 }
