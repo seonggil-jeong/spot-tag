@@ -1,6 +1,7 @@
 package com.spottag.app.service.tag.dto;
 
 import com.spottag.app.domain.model.entity.TagBaseEntity;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,6 +18,9 @@ import java.time.LocalDateTime;
 public class TagBaseDto {
     private final Long tagId;
     private final String tagContent;
+    private final String latitude;
+    private final String longitude;
+    private final String accountId;
     private final String createdBy;
     private final String updatedBy;
     private final String deletedBy;
@@ -33,6 +37,9 @@ public class TagBaseDto {
         return TagBaseDto.builder()
                 .tagId(entity.getTagId())
                 .tagContent(entity.getTagContent())
+                .accountId(entity.getAccountId().getAccountId())
+                .latitude(entity.getLatitude())
+                .longitude(entity.getLongitude())
                 .createdBy(entity.getCreatedBy())
                 .updatedBy(entity.getUpdatedBy())
                 .deletedBy(entity.getDeletedBy())

@@ -2,7 +2,7 @@ package com.spottag.app.service.tag;
 
 import com.spottag.app.domain.model.entity.TagBaseEntity;
 import com.spottag.app.domain.repository.TagBaseRepository;
-import com.spottag.app.service.like.LikeService;
+import com.spottag.app.service.like.LikeServiceImpl;
 import com.spottag.app.service.tag.dto.TagBaseDto;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,7 @@ import java.util.NoSuchElementException;
 @RequiredArgsConstructor
 public class TagBaseServiceImpl {
     private final TagBaseRepository tagBaseRepository;
-    private final LikeService likeService;
+    private final LikeServiceImpl likeServiceImpl;
 
 
     /**
@@ -35,7 +35,7 @@ public class TagBaseServiceImpl {
     public TagBaseDto getTagBaseByTagId(final Long tagId) throws Exception {
         TagBaseDto tagBaseDto = TagBaseDto.ofEntity(tagBaseRepository.findByTagIdAndDeletedAtIsNull(tagId).orElseThrow(()
                 -> new ResponseStatusException(HttpStatus.NOT_FOUND, "cannot found TagBase with Id : " + tagId)));
-        tagBaseDto.setLikeCount(likeService.countLikeByAccountIdAndTagId(tagId));
+        tagBaseDto.setLikeCount(likeServiceImpl.countLikeByAccountIdAndTagId(tagId));
 
         return tagBaseDto;
     }
