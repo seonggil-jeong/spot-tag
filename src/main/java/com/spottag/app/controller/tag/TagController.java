@@ -1,8 +1,7 @@
 package com.spottag.app.controller.tag;
 
 import com.spottag.app.controller.ControllerSupport;
-import com.spottag.app.controller.tag.res.TagBaseDetailResponse;
-import com.spottag.app.controller.tag.res.TagBaseResponse;
+import com.spottag.app.controller.tag.res.*;
 import com.spottag.app.service.tag.TagBaseServiceImpl;
 import com.spottag.app.service.tag.TagFacadeServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
@@ -31,16 +30,20 @@ public class TagController extends ControllerSupport {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "조회 성공")
     })
-    public ResponseEntity<List<TagBaseResponse>> getTagBaseList(
-            @Parameter(description = "위도", required = true)
+    public ResponseEntity<List<TagInfoResponse>> getTagBaseList(
+            @Parameter(description = "사용자 위도", required = true)
             @RequestParam final String latitude,
-            @Parameter(description = "경도", required = true)
-            @RequestParam final String longitude
+            @Parameter(description = "사용자 경도", required = true)
+            @RequestParam final String longitude,
+            @Parameter(description = "조회할 Tag 거리 ex.) 5 : 사용자 경도, 위도로부터 +-5에 있는 마커 정보 조회", required = false)
+            @RequestParam(required = false, defaultValue = "0.1") final Double distance
     ) throws Exception {
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body(tagBaseService.getTagInfoByLatitudeAndLongitude(latitude, longitude, distance)
+                .stream().map(TagInfoResponse::ofDto).toList());
 
     }
+
 
     @GetMapping("/tags/{tagId}/details")
     @Operation(summary = "TagBase 정보만 조회", description = "위치 기반 Tag BaseList 조회")

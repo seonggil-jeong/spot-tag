@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 @SuperBuilder
 public class TagMusicDto {
     private final Long tagMusicId;
+    private final String title;
     private String artistName;
     private String trackId;
     private String trackUrl;
@@ -29,6 +30,7 @@ public class TagMusicDto {
     public static TagMusicDto ofEntity(TagMusicEntity entity) {
         return TagMusicDto.builder()
                 .tagMusicId(entity.getTagMusicId())
+                .title(entity.getMusicTitle())
                 .artistName(entity.getArtistName())
                 .trackId(entity.getTrackId())
                 .trackUrl(entity.getTrackUrl())
