@@ -12,6 +12,7 @@ import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,10 +20,12 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
+import java.time.Instant;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 @Component
 @RequiredArgsConstructor
@@ -80,10 +83,9 @@ public class JwtProvider implements AuthTokenProvider<JwtToken> {
      * access token 만료 시간은 현재 시간 + 20분이다.
      */
     @Override
-    public String createAccessToken(Long accountId, String role, Map<String, Object> claims) {
-        JwtToken jwtToken = new JwtToken(accountId.toString(), key, role, claims, new Date(System.currentTimeMillis() + 1000 * 60 * 20));
-        redisTemplate.opsForValue().set(accountId.toString(), jwtToken.getToken(), accessExpires);
-        return jwtToken.getToken();
+    public JwtToken createAccessToken(Long accountId, String role, Map<String, Object> claims) {
+        return new JwtToken(accountId.toString(), key, role, claims, new Date(System.currentTimeMillis() + 1000 * 60 * 20));
+
     }
 
     /**
@@ -92,7 +94,7 @@ public class JwtProvider implements AuthTokenProvider<JwtToken> {
     @Override
     public JwtToken createRefreshToken(Long accountId, String role, Map<String, Object> claims) {
         JwtToken jwtToken = new JwtToken(accountId.toString(), key, role, claims, new Date(System.currentTimeMillis() + 1000 * 60 * 20));
-        redisTemplate.opsForValue().set(accountId.toString(), jwtToken.getToken(), refreshExpires);
+        redisTemplate.opsForValue().set(accountId.toString(), jwtToken.getToken(), refreshExpires, TimeUnit.SECONDS);
         return jwtToken;
     }
 

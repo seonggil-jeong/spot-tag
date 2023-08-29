@@ -1,8 +1,9 @@
 package com.spottag.app.service.account;
 
 import com.spottag.app.controller.account.req.LoginRequest;
-import com.spottag.app.controller.account.req.RegisterAccountRequest;
+import com.spottag.app.controller.account.res.LoginResponse;
 import com.spottag.app.service.account.dto.AccountDto;
+import com.spottag.app.service.account.dto.LoginDto;
 
 public interface AuthAccountService {
     /**
@@ -17,9 +18,10 @@ public interface AuthAccountService {
 
     /**
      * 사용자 로그인
+     *
      * @param request
      * @return
      * @throws Exception
      */
-    String login(LoginRequest request) throws Exception;
+    LoginResponse login(LoginRequest request) throws Exception;
 }
