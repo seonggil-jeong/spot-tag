@@ -10,4 +10,6 @@ public interface AuthTokenProvider <T> {
     T createToken(Long accountId, String role, Map<String, Object> claims, Date expiredDate);
     T convertAuthToken(String token);
     Authentication getAuthentication(T authToken);
+    String createAccessToken(Long accountId, String role, Map<String, Object> claims);
+    T createRefreshToken(Long accountId, String role, Map<String, Object> claims);
 }
