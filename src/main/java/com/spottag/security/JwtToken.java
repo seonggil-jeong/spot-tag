@@ -49,7 +49,7 @@ public class JwtToken implements AuthToken<Claims> {
     public Claims getDate() {
 
         try {
-            return Jwts.parserBuilder().setSigningKey(key.getEncoded()).build().parseClaimsJwt(token).getBody();
+            return Jwts.parserBuilder().setSigningKey(key.getEncoded()).build().parseClaimsJws(token).getBody();
         } catch (SecurityException e) {
             log.warn("Invalid JWT signature");
         } catch (MalformedJwtException e) {
