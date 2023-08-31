@@ -2,6 +2,7 @@ package com.spottag.security;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.impl.DefaultClaims;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.security.Key;
@@ -10,6 +11,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
+@Getter
 public class JwtToken implements AuthToken<Claims> {
 
     private final String token;
@@ -62,4 +64,5 @@ public class JwtToken implements AuthToken<Claims> {
 
         return null;
     }
+
 }
