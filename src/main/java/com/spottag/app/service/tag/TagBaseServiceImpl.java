@@ -1,6 +1,7 @@
 package com.spottag.app.service.tag;
 
 import com.spottag.app.domain.model.entity.TagBaseEntity;
+import com.spottag.app.domain.repository.AccountRepository;
 import com.spottag.app.domain.repository.TagBaseRepository;
 import com.spottag.app.service.like.LikeServiceImpl;
 import com.spottag.app.service.tag.dto.TagBaseDto;
@@ -23,6 +24,7 @@ import java.util.NoSuchElementException;
 @RequiredArgsConstructor
 public class TagBaseServiceImpl {
     private final TagBaseRepository tagBaseRepository;
+    private final AccountRepository accountRepository;
     private final LikeServiceImpl likeServiceImpl;
 
 
@@ -58,6 +60,8 @@ public class TagBaseServiceImpl {
     ) throws Exception {
 
         return TagBaseDto.ofEntity(tagBaseRepository.save(TagBaseEntity.builder()
+                .accountId(accountRepository.findFirstByAccountIdAndDeletedByIsNull(accountId).orElseThrow(()
+                        -> new ResponseStatusException(HttpStatus.NOT_FOUND, "cannot found Account By Id : " + accountId)))
                 .tagContent(tagContent)
                 .latitude(latitude)
                 .longitude(longitude)

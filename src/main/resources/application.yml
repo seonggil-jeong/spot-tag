@@ -7,6 +7,9 @@ spring:
 
 jwt:
   secret: "SpringBootSampleKeySpringBootSampleKeySpringBootSampleKeySpringBootSampleKey"
+  token:
+    access-expires: 1200000    # 20분
+    refresh-expires: 172800000   # 2일
 
 mybatis:
   type-aliases-package: com.spottag.app.domain.vo

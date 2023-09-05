@@ -3,7 +3,9 @@ package com.spottag.app.controller.account;
 import com.spottag.app.controller.ControllerSupport;
 import com.spottag.app.controller.account.req.LoginRequest;
 import com.spottag.app.controller.account.req.RegisterAccountRequest;
+import com.spottag.app.controller.account.res.LoginResponse;
 import com.spottag.app.service.account.AuthAccountService;
+import com.spottag.app.service.account.dto.LoginDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -34,13 +36,8 @@ public class AuthController extends ControllerSupport {
             @ApiResponse(responseCode = "404", description = "일치하는 사용자 정보를 찾을 수 없음")
     })
     @PostMapping("/login")
-    public ResponseEntity<String> userLogin(@Validated @RequestBody LoginRequest request) throws Exception {
-        final String token = authAccountService.login(request);
-        HttpHeaders headers = new HttpHeaders();
-
-        headers.add("TOKEN", token);
-
-        return ResponseEntity.ok().headers(headers).build();
+    public ResponseEntity<LoginResponse> userLogin(@Validated @RequestBody LoginRequest request) throws Exception {
+        return ResponseEntity.ok().body(authAccountService.login(request));
     }
 
 
