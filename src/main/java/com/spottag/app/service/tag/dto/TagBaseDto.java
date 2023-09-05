@@ -37,7 +37,7 @@ public class TagBaseDto {
         return TagBaseDto.builder()
                 .tagId(entity.getTagId())
                 .tagContent(entity.getTagContent())
-                .accountId(entity.getAccountId().getAccountId())
+                .accountId(entity.getAccountId() != null ? entity.getAccountId().getAccountId() : null)
                 .latitude(entity.getLatitude())
                 .longitude(entity.getLongitude())
                 .createdBy(entity.getCreatedBy())
@@ -46,7 +46,7 @@ public class TagBaseDto {
                 .createdAt(entity.getCreatedAt())
                 .updatedAt(entity.getUpdatedAt())
                 .deletedAt(entity.getDeletedAt())
-                .tagMusicId(entity.getTagMusic().getTagMusicId())
+                .tagMusicId(entity.getTagMusic() != null ? entity.getTagMusic().getTagMusicId() : null)
                 .build();
     }
 }
