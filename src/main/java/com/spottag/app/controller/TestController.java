@@ -36,10 +36,10 @@ public class TestController {
         Map<String, Object> testMap = new HashMap<>();
         testMap.put("testKey", "testValue");
 
-        JwtToken refresh = (JwtToken) authTokenProvider.createRefreshToken(1L, "test", testMap);
+        JwtToken refresh = (JwtToken) authTokenProvider.createRefreshToken("testUserId", "test", testMap);
         System.out.println("## 리프레쉬 토큰 정보다 : " + refresh.getToken());
 
-        JwtToken access = (JwtToken) authTokenProvider.createAccessToken(1L, "test", testMap);
+        JwtToken access = (JwtToken) authTokenProvider.createAccessToken("testUserId", "test", testMap);
         System.out.println("## 엑세스 토큰 정보다 : " + access.getToken());
 
         return access.getToken();
